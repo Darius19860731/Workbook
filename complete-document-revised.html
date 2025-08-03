@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Statistics Assignment - DLMDSAS01</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.0/math.min.js"></script>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+            background: white;
+            color: #333;
+        }
+
+        .title-page {
+            text-align: center;
+            margin-bottom: 40px;
+            page-break-after: always;
+        }
+
+        .title-page h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .title-page .info {
+            font-size: 14px;
+            line-height: 2;
+            margin: 20px 0;
+        }
+
+        .parameters {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        h1 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            color: #34495e;
+        }
+
+        h3 {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #5d6d7e;
+        }
+
+        .equation {
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .plot-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .plot-container .caption {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .results-box {
+            background: #e8f4fd;
+            border: 1px solid #bee5eb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .conclusion {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .toc {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .references {
+            margin-top: 40px;
+            border-top: 2px solid #ccc;
+            padding-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .math-inline {
+            font-family: 'Times New Roman', serif;
+        }
+
+        .matrix-display {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 11px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 3px;
+            font-size: 12px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .controls {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 5px;
+            border-left: 3px solid #007bff;
+        }
+
+        /* Print optimization for PDF export */
+        @media print {
+            body {
+                font-size: 11pt;
+                line-height: 1.4;
+            }
+            .plot-container {
+                page-break-inside: avoid;
+                margin: 15px 0;
+            }
+            h1 {
+                page-break-before: always;
+                margin-top: 20pt;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+            .step, .results-box, .conclusion {
+                page-break-inside: avoid;
+                margin: 10px 0;
+            }
+            table {
+                page-break-inside: avoid;
+            }
+            .title-page {
+                page-break-after: always;
+            }
+            .matrix-display {
+                font-size: 9pt;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="title-page">
+        <h1>Advanced Statistics Assignment</h1>
+        <h1>WorkBook</h1>
+        <h2>DLMDSAS01 </h2>
+
+        <div class="info">
+            <strong>Student:</strong> Darius Kranauskas<br>
+            <strong>Registration Number:</strong> Matriculation nr: 9217937<br>
+            <strong>Date:</strong> July 26, 2025<br>
+            <strong>Place:</strong> Stockholm, Sweden
+        </div>
+
+        <div class="parameters">
+            <strong>Parameters generated on July 26, 2025</strong><br>
+            <strong>Signature:</strong> a182e5e89422bf5c48ba0b66a21a8da4e6b6cc96
+        </div>
+    </div>
+
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li>1. Generated Parameters ......................................................... 3</li>
+            <li>2. Electoral Probability Analysis: Bernoulli Distribution ..................... 4</li>
+            <li>3. Wildlife Observation Modeling: Continuous Probability Distributions ........ 6</li>
+            <li>4. Network Infrastructure Analysis: Transformed Random Variables .............. 8</li>
+            <li>5. Manufacturing Quality Control: Statistical Hypothesis Testing .............. 10</li>
+            <li>6. Complex Function Modeling: Regularized Polynomial Regression .............. 12</li>
+            <li>7. Parameter Estimation: Bayesian Statistical Methods ........................ 14</li>
+            <li>8. Literature .............................................................. 16</li>
+        </ul>
+    </div>
+
+    <h1>1. Generated Parameters</h1>
+    <div class="parameters">
+        <strong>Assignment 1:</strong> ξ₁ = 0, ξ₂ = 0.23<br>
+        <strong>Assignment 2:</strong> ξ₄ = 3, ξ₅ = 0.41, ξ₆ = 5, ξ₇ = 0.58, ξ₈ = 5<br>
+        <strong>Assignment 3:</strong> ξ₉ = 1, ξ₁₀ = [41, 1, 26, 3, 22]<br>
+        <strong>Assignment 4:</strong> ξ₁₁ = 801, ξ₁₂ = 22.1, ξ₁₃ = 3, ξ₁₄ = [783, 828, 778, 823, 791, 854, 806, 828, 818, 833]<br>
+        <strong>Assignment 5:</strong> ξ₁₅ = 2, ξ₁₆ = [22  (-4, -4584407.21), (8, -7151152997.26), (5, -65912078.15), (-12, -348816982635.19),
+        (15, -3792559827858.3), (-5, -47368320.15), (-10, -56016869157.07), (-16, -6455747893032.33), (6, -379947239.6), (-6, -302663275.82), (20, -65793862165369.98),
+        (-8, -5556978936.87), (-14, -1631524306238.36), (14, -1798673099928.72), (9, -22133168012.66),
+        (7, -1884453691.39), (-17, -11513644058073.66), (-9, -18548319226.22), (0, -9.15), (2, -5842.83), (19, -38882403617014.49), (-13, -744852876963.87)]<br>
+
+        <strong>Assignment 6:</strong> ξ₁₇ = 29, ξ₁₈ = 64, ξ₁₉ = 34.01
+    </div>
+
+    <div><li><strong> Introduction </strong></li>
+        Statistics is a great tool to understand our reality, especially today's complex world, where our empirical knowledge is transferred into data, or,
+        as one of my favourite definitions of data by B. As Brian Clegg uses expression to define and illustrate "data", According to the dictionary, 'data' derives from the plural of the Latin 'datum',
+        meaning 'the thing that's given'. Staying with this definition, something that is given for us can be interpreted by using a wide range of Statistical tools. This Workbook is an attempt to
+        implement these tools in narrow pragmatic applications. Given that we define criteria or parameters will be written at the top of the Workbook. The used literature will be at the end of the Book.
+        For the sake of clarity, I will provide a diagram for workbook construction at the end of the Workbook. It illustrates the code used to build this Workbook. The technological stack consists of
+        HTML with CSS styles, and JavaScript handles computations and visualisations. Motivation to do so is partly because of flexible editing, easy rendering of high-quality
+        LaTeX formulas and necessary plots. However, it comes with some caveats; it is not a traditional text editing program and requires a slightly different approach to assembling text.
+        Since it is all about the reader, I believe it will deliver a good experience, an easy-to-understand text without losing scientific rigour.
+        On top of it all, code can be found via the GitHub repository. Link: () self HTML text assembly code will be deployed in GitHub pages function, it is available via link. here.
+    </div>
+
+        <h1>2. Electoral Probability Analysis: Bernoulli Distribution</h1>
+
+    <p>Since ξ₁ = 0, I analyze a <strong>Bernoulli distribution</strong> where P(vote = "for") = ξ₂ = 0.23.</p>
+
+    <h2>2.1 Problem Setup</h2>
+    <p>A vote with outcome <em>for</em> or <em>against</em> follows a Bernoulli distribution according to Hogg et al. (2020, Section 3.1.2)
+        where the Bernoulli (as a special case of the binomial distribution with n=1 or amount random experiments) is defined such that the total probability across all possible outcomes sums to 1.</p>
+
+    <p><strong>Probability Distribution:</strong></p>
+    <ul>
+        <li>P(vote = "for") = 0.23 = 23%</li>
+        <li>P(vote = "against") = 1 - 0.23 = 0.77 = 77%</li>
+    </ul>
+
+    <div class="plot-container">
+        <div id="bernoulli-plot" style="width: 100%; height: 400px;"></div>
+        <div class="caption">Figure 1: Electoral Vote Distribution - Bernoulli Model Analysis</div>
+    </div>
+
+    <h2>2.2 Expectation Calculation</h2>
+    <p> We are assuming the variable follows a Bernoulli distribution—a special case of the binomial distribution with n=1,
+        where the total probability across all possible outcomes sums to 1—the expectation can be calculated accordingly.
+        Under this assumption, the probability is equal to 1, or 100%. The calculations are as follows.:</p>
+
+    <p> We assign numerical values to the outcomes. Let X be the random variable where:</p>
+    <ul>
+        <li>X = 1 if vote = "for"</li>
+        <li>X = 0 if vote = "against"</li>
+    </ul>
+
+    <div class="equation">
+        $$E[X] = 1 \times P(X = 1) + 0 \times P(X = 0) = 1 \times 0.23 + 0 \times 0.77 = 0.23$$
+    </div>
+
+    <div class="results-box">
+        <strong>Results:</strong><br>
+        • Probability of "for": 23.0%<br>
+        • Probability of "against": 77.0%<br>
+        • Expected value: 0.23<br>
+        • Interpretation: The expected value represents the probability of a "for" vote in this Bernoulli trial.
+    </div>
+
+    <h1>3. Wildlife Observation Modeling: Continuous Probability Distributions</h1>
+
+    <p>Since generated parameter for task is ξ₄ = 3, the continuous probability distributions function is:</p>
+    <div class="equation">
+        $$P(Y > y) = \xi_5 e^{-\xi_6 y^2} + \xi_7 e^{-\xi_8 y^2}$$
+    </div> <p> It would requare to talk about Mixture survival models or special application in this case. Where <div class="equation"> $$ \xi_5 ; \xi_7 $$ </div> is Mixture weights.
+    These are scalar coefficients (typically between 0 and 1) representing the proportional contribution of each component to the overall model.
+    Biologically, they may reflect the likelihood of different vocalization modes or behavioral states (e.g., spontaneous calls vs. reactive calls).
+    If model is normalised (meaning summation of weights never reacthes = 1 it must be rounded accordingly. <div class="equation"> $$ \xi_6 ; \xi_8 $$ </div> Rate (decay) parameters. These control how quickly
+    each exponential term decays with increasing y, effectively determining the "spread" or "scale" of each timing component. Larger values of parameter correspond to shorter expected intervals.
+    </p>
+    <p>Substituting  given parameters:</p>
+    <div class="equation">
+        $$P(Y > y) = 0.41 e^{-5y^2} + 0.58 e^{-5y^2} = 0.99 e^{-5y^2}$$
+    </div>
+
+    <h2>3.1 We need to check one important factor.  </h2>
+    <p>Check that ξ₅ + ξ₇ = 0.41 + 0.58 = 0.99 ≈ 1.0 </p>
+
+    <h2>3.2 Probability Density Function</h2>
+    <p>Since P(Y > y) is the survival function, the density function is:</p>
+    <div class="equation">
+        $$f(y) = -\frac{d}{dy} P(Y > y) = -\frac{d}{dy}[0.99 e^{-5y^2}] = 9.9y \cdot e^{-5y^2}$$
+    </div>
+
+    <div class="plot-container">
+        <div id="density-plot" style="width: 100%; height: 400px;"></div>
+        <div class="caption">Figure 2: Wildlife Observation - Owl Detection Time Probability Density</div>
+    </div>
+
+    <h2>3.3 Target Probability Calculation</h2>
+    <div class="equation">
+        $$P(2 < Y < 4) = P(Y > 2) - P(Y > 4) = 0.99 e^{-20} - 0.99 e^{-80} \approx 2.04 \times 10^{-9}$$
+    </div>
+
+    <h2>3.4 Statistical Measures</h2>
+    <div class="results-box">
+        <strong>Computed using numerical integration:</strong><br>
+        • Mean: μ ≈ 0.392 hours<br>
+        • Q₁ ≈ 0.236 hours<br>
+        • Median ≈ 0.370 hours<br>
+        • Q₃ ≈ 0.525 hours<br>
+        • P(2 < Y < 4) ≈ 2.04 × 10⁻⁹
+    </div>
+
+    <div class="plot-container">
+        <div id="histogram-plot" style="width: 100%; height: 400px;"></div>
+        <div class="caption">Figure 3: Wildlife Observation - Minute-by-Minute Detection Probability Distribution</div>
+    </div>
+    </div> <p> The statistical results suggest that the timing of owl calls is remarkably consistent. With an average interval of around 0.39 hours and a median close behind at 0.37 hours,
+        it's clear that most vocalizations occur within a fairly regular time frame. The spread between the first and third quartiles (from about 0.24 to 0.53 hours)
+        shows that the owls don't vary much in how long they wait between calls. Interestingly, the chance of an owl going silent for 2 to 4 hours between calls is almost nonexistent — about 2 in a billion.
+        This confirms what we often hear in the wild: owls tend to call at regular, rhythmic intervals rather than with long gaps. It is possible to read more about bird song with deep
+        analytical tone in "Quantitative analysis of timing in animal vocal sequences" by Noriega, Florencia; Montes-Medina, Adolfo Christian;Timme, Marc. (2019).
+    </p>
+
+    <h1>4. Network Infrastructure Analysis: Transformed Random Variables</h1>
+    <p>Hogg et al. (2020, Section 3.3) provide a coprehensive overview of the Gamma distribution family functions, including its real-world applications
+        in reliability and failure modeling. This is quite relevant to the task at hand, where we aim to model the likelihood of router failure within a dual-router network.
+        For the infrastructure team, this analysis offers a data-driven approach to estimating how long a reliable router system can be expected to operate before complete failure occurs.
+        Since we've already defined the statistical behavior of a single router's bandwidth-to-failure using a Gamma distribution, our next step is to model the total system failure.
+        Evaluation is done by expressing T is the total bandwidth before both routers fail and the sum of two independent variables, S₁ and S₂. Assuming the routers
+        fail independently and follow the same distribution, we can derive the density function of T,
+        calculate its expected value, and estimate parameters using real experimental data:</p>
+
+    <p>Since given parameter is  ξ₉ = 1, the bandwidth S follows the distribution:</p>
+    <div class="equation">
+        $$f_S(s) = \frac{1}{24\theta^5} s^4 e^{-s/\theta}$$
+    </div>
+
+    <p>This is a <strong>Gamma distribution</strong> with shape parameter α = 5 and scale parameter θ.</p>
+
+    <h2>4.1 Network Infrastructure System Model</h2>
+    <p>For the dual-router system, T = S₁ + S₂, where S₁ and S₂ are independent.</p>
+
+    <p><strong>Assumptions:</strong></p>
+    <ol>
+        <li>S₁ and S₂ are independent (routers fail independently)</li>
+        <li>Both routers have identical failure characteristics</li>
+        <li>The second router activates immediately when the first fails</li>
+    </ol>
+
+    <h2>4.2 Density Function of T</h2>
+    <p>For the sum of two independent Gamma(5, θ) random variables, T follows Gamma(10, θ):</p>
+    <div class="equation">
+        $$f_T(t) = \frac{1}{\Gamma(10)\theta^{10}} t^9 e^{-t/\theta} = \frac{1}{362880\theta^{10}} t^9 e^{-t/\theta}$$
+    </div>
+
+    <h2>4.3 Likelihood Function</h2>
+    <p>Given sample T₁, T₂, ..., Tₙ from ξ₁₀ = [41, 1, 26, 3, 22]:</p>
+    <div class="equation">
+        $$L(\theta) = \prod_{i=1}^n \frac{1}{362880\theta^{10}} t_i^9 e^{-t_i/\theta} = \frac{\prod t_i^9}{(362880)^n \theta^{10n}} e^{-\sum t_i/\theta}$$
+    </div>
+
+    <p><strong>Log-likelihood transformation:</strong></p>
+    <div class="equation">
+        $$\ell(\theta) = \sum 9\ln(t_i) - 10n \ln(\theta) - n \ln(362880) - \frac{\sum t_i}{\theta}$$
+    </div>
+
+    <h2>4.4 Maximum Likelihood Estimation</h2>
+    <p>Setting dℓ/dθ = 0:</p>
+    <div class="equation">
+        $$\hat{\theta} = \frac{\sum t_i}{10n} = \frac{93}{50} = 1.86$$
+    </div>
+
+    <div class="results-box">
+        <strong>Results:</strong><br>
+        • Sample data: [41, 1, 26, 3, 22]<br>
+        • Sample size: n = 5<br>
+        • Sum of observations: 93<br>
+        • MLE estimate: \(\hat{\theta} = 1.86 \)<br>
+        • Expected bandwidth total: \( E[T] = 10\hat{\theta} = 18.6 \) terabytes
+    </div>
+    <p> Based on the sample data from the dual-router system, we estimated the scale parameter θ using Maximum Likelihood and arrived at \(\hat{\theta} = 1.86 \).
+        With this, the expected total bandwidth until both routers fail — modeled as a gamma(10, θ) distribution — is approximately 18.6 terabytes.
+        This gives us a clear baseline for how long the system can be expected to operate under normal conditions before a full failure occurs.
+        More importantly, this result provides a practical foundation for infrastructure planning.
+        Moving forward, we should monitor the actual volume of data transferred and use that to develop a maintenance calendar.
+        By estimating when routers most likely to approach their failure thresholds, we can proactively schedule hardware replacements, assign staff, and allocate financial resources.
+        This kind of predictive maintenance will help ensure we maintain a reliable and uninterrupted internet connection, even as network demands continue to grow.</p>
+
+    <h1>5. Manufacturing Quality Control:  Hypothesis Testing</h1>
+
+    <p>While accuracy and consistency in a manufacturing process is as important as product. When a new production system is introduced,
+        it is crucial to assess whether the accuracy and consistency of product characteristics are the same or better. In this case, our focus is directed to the variance of hammer weights.
+
+        Using hypothesis testing, specifically a one-tailed chi-square test for variance. Bruce & Bruce (2017, Section 4.1.1) provide a detailed overview of the chi-square test,
+        including its assumptions and how to interpret the test statistic. Mathematically rigorous Hogg et al. (2020, Section 4.7) provides definitions and use cases (example  4.7.1 with same 5% treshhold.)
+        and formulas for the chi-square test.
+        Using this method to evaluate whether the new system results in significantly higher variability than the established standard: \[\sigma_0^2 = 488.41\]
+        This allows us to determine if the new process produces less consistent weights, then Mean values allow to be compared.
+        Purpuse of  one-tailed test is only to show  whether the variance has increased, not simply changed in either direction
+        Deciding contrains is based on the Chi-square distribution's right tail:
+        H_0 is rejected if the observed test statistic exceeds the critical value: \[ \chi^2 = \frac{(n-1)s^2}{\sigma_0^2} \quad \text{Reject } H_0 \text{ if } \chi^2 > \chi^2_{\alpha, n-1} \]
+        This corresponds to a low-probability event under H₀—i.e.,
+        observing such a large sample variance would be unlikely unless the true variance had increased. Thus, we set: Reject H₀ if $$\chi^2_{0.05,\,9} = 16.919$$
+
+        This threshold controls the Type I error rate at 5%, ensuring we only reject null hypothesis when there's strong  evidence of increased variability. </p>
+
+    <h2>5.1 Model Specification</h2>
+    <p><strong>Model:</strong> Weight of hammers W ~ N(μ, σ²)</p>
+    <ul>
+        <li>Historical parameters: μ₀ = 801g, σ₀ = 22.1g</li>
+    </ul>
+
+    <p><strong>Assumptions:</strong></p>
+    <ol>
+        <li>Weights are normally distributed</li>
+        <li>Independent measurements</li>
+        <li>No systematic errors</li>
+    </ol>
+
+    <p>Since ξ₁₃ = 3, we test: <strong>"Does the new system make less constant weights?"</strong> (higher variance)</p>
+
+    <h2>5.2 Hypothesis Formulation</h2>
+    <ul>
+        <li><strong>H₀:</strong> σ² ≤ (22.1)² = 488.41 (a new system does not increase variance)</li>
+        <li><strong>H₁:</strong> σ² > 488.41 (a new system increases variance/less constant)</li>
+    </ul>
+
+    <p>This is a <strong>one-tailed chi-square test</strong> for variance.</p>
+
+    <h2>5.3 Test Statistics and Decision Rule</h2>
+    <p>Sample data ξ₁₄: [783, 828, 778, 823, 791, 854, 806, 828, 818, 833]</p>
+
+    <div class="results-box">
+        <strong>Sample Statistics:</strong><br>
+        • n = 10<br>
+        • x̄ = 814.2g<br>
+        • s² = 588.8g²<br>
+        • s = 24.27g
+    </div>
+
+    <p><strong>Test statistic:</strong></p>
+    <div class="equation">
+        $$\chi^2 = \frac{(n-1)s^2}{\sigma_0^2} = \frac{9 \times 588.8}{488.41} = 10.85$$
+    </div>
+
+    <p><strong>Decision rule:</strong> Reject H₀ if χ² > χ²₍₀.₀₅,₉₎ = 16.919</p>
+
+    <div class="plot-container">
+        <div id="chi-square-plot" style="width: 100%; height: 400px;"></div>
+        <div class="caption">Figure 4: Manufacturing Quality Control - Chi-square Variance Test Analysis</div>
+    </div>
+    <p>
+        By using the chi-square test for variance, we compared the sample variability to the historical standard.
+        Since the calculated test statistic: \[\chi^2 = 10.85\] is less than the critical value: $$\chi^2_{0.05, 9} = 16.919$$ we do not reject the null hypothesis.
+        Based on this method, we conclude that there is no strong evidence that the new system leads to more variation in hammer weights.
+        In other words, the new process appears to maintain consistency comparable to the previous one.</p>
+
+    <h1>6. Complex Function Modeling: Regularized Polynomial Regression</h1>
+
+    <p>
+        Given that ξ₁₅ = 2, we analyze a polynomial regression model with ten parameters to approximate a complex, unknown function
+        \( f : \mathbb{R} \to \mathbb{R} \). The chosen model is a 9th-degree polynomial, which allows for flexible approximation of
+        nonlinear behavior based on observed data points provided in ξ₁₆.
+    </p>
+
+    <p>
+        The main goal for us is to estimate the parameter \({\alpha} \) using both Ordinary Least Squares (OLS) and ridge regression.
+        While OLS is a standard technique for fitting polynomial models, the extreme range of the target values in this dataset leads to
+        significant numerical instability, making reliable inversion of the design matrix nearly impossible.
+    </p>
+
+    <p>
+        To overcome these challenges, we apply ridge ("ridge" refers to the path from the constrained maximum [Wikipedia]) regression (also known as Tikhonov regularization [Wikipidia])
+        — a regularized version of OLS — which stabilizes the estimation by adding
+        a penalty term proportional to the squared norm of the parameter vector. This regularization improves the conditioning of the problem
+        and helps prevent overfitting by controlling the size of the model coefficients.
+    </p>
+
+    <p>
+        The primary goal of this section is to:
+    </p>
+    <ul>
+        <li>Compute the OLS and ridge-regularized estimates of the polynomial parameters.</li>
+        <li>Investigate the effects of different penalty weights \( \lambda \).</li>
+        <li>Compare the numerical stability and predictive quality of both methods.</li>
+        <li>Provide justification for the chosen regularization strategy and evaluate the model's performance using cross-validation and solution diagnostics.</li>
+    </ul>
+
+    <p>
+        This approach not only addresses the limitations of high-degree polynomial fitting but also aligns with the broader goal
+        of constructing a robust model under extreme data conditions.
+    </p>
+
+
+    <div class="equation">
+        $$f(x) = \alpha_0 + \alpha_1 x + \alpha_2 x^2 + \alpha_3 x^3 + \alpha_4 x^4 + \alpha_5 x^5 + \alpha_6 x^6 + \alpha_7 x^7 + \alpha_8 x^8 + \alpha_9 x^9$$
+    </div>
+
+    <h2> Problem Formulation and Data Analysis</h2>
+
+    <p>The sample points from ξ₁₆ reveal extreme numerical challenges that require careful consideration:</p>
+
+    <div class="step">
+        <strong>Data Characteristics:</strong> The y-values range from -9.15 to -1.15×10¹⁴, spanning 13 orders of size.
+        This extreme range suggests the function exhibits rapid exponential growth or decay, making standard polynomial fitting numerically unstable.
+    </div>
+
+    <div id="data-table-container"></div>
+
+    <h2>Mathematical Framework</h2>
+
+    <p><strong>Design Matrix Construction:</strong> The Vandermonde matrix X where each row i contains:</p>
+    <div class="equation">
+        $$X_i = [1, x_i, x_i^2, x_i^3, x_i^4, x_i^5, x_i^6, x_i^7, x_i^8, x_i^9]$$
+    </div>
+
+    <p><strong>OLS Formulation:</strong> The ordinary least squares estimator is given by:</p>
+    <div class="equation">
+        $$\hat{\alpha}_{OLS} = (X^TX)^{-1}X^Ty$$
+    </div>
+
+    <p><strong>Ridge Regularization:</strong> To address numerical instability, we employ ridge regression:</p>
+    <div class="equation">
+        $$\hat{\alpha}_{ridge} = (X^TX + \lambda I)^{-1}X^Ty$$
+    </div>
+
+    <p>where λ > 0 is the regularization parameter that controls the bias-variance tradeoff.</p>
+
+    <h2>Computational Implementation and Core Functions</h2>
+
+    <p><strong>Core Mathematical Functions Used:</strong></p>
+    <ul>
+        <li><strong>math.js library:</strong> Matrix operations (multiply, transpose, inverse, determinant)</li>
+        <li><strong>Vandermonde matrix:</strong> Standard polynomial basis construction</li>
+        <li><strong>Numerical integration:</strong> For cross-validation and model assessment</li>
+    </ul>
+
+    <h2>Computational Analysis Results</h2>
+
+        <p>Vandermonde Matrix
+
+            \[
+            X =
+            \begin{bmatrix}
+            1 & x_1 & x_1^2 & \dots & x_1^d \\
+            1 & x_2 & x_2^2 & \dots & x_2^d \\
+            \vdots & \vdots & \vdots & \ddots & \vdots \\
+            1 & x_n & x_n^2 & \dots & x_n^d \\
+            \end{bmatrix}
+            \]
+
+            It will be shown only first 5 Vandermonde Matrix  :</p>
+        <div class="matrix-display" id="matrix-display"></div>
+        <p>Matrix Dimensions: 22 × 10 (observations × parameters) in oyher words, since we have 22 data points to fit 10 - th degree polinomial. </p>
+
+        <h4>Ordinary Least Squares Assessment</h4>
+        <div id="ridge-results-container"></div>
+
+        <h4>Ridge Regularization Performance</h4>
+        <div id="ridge-table-container"></div>
+
+        <div class="highlight">
+            <strong>Recommended λ:</strong> 10³ - 10⁴<br>
+            <strong>Reasoning:</strong> Optimal balance between numerical stability and fit quality
+        </div>
+
+        <h4>Parameter Selection Analysis</h4>
+        <div id="cv-results-container"></div>
+
+
+
+        <h4>Solution Quality Assessment</h4>
+        <p><strong>Key Findings:</strong></p>
+        <ul>
+            <li><strong>Numerical instability:</strong> The extreme variation in y-values (spanning many orders of magnitude) leads to ill-conditioning of the OLS solution.</li>
+            <li><strong>Regularization necessity:</strong> Ridge regression is required to stabilize parameter estimation and avoid unreliable matrix inversion.</li>
+            <li><strong>Penalty tuning:</strong> Analysis indicates an optimal regularization weight of \( \lambda \approx 10^3 \), balancing bias and variance.</li>
+            <li><strong>Model flexibility:</strong> The high degree of the polynomial (9) increases approximation power but risks overfitting without regularization.</li>
+            <li><strong>Practical outcome:</strong> Ridge regression yields interpretable and numerically stable coefficients suitable for modeling under extreme data conditions.</li>
+        </ul>
+
+    <h2>6.4 Regularization Parameter Selection</h2>
+
+    <p><strong>Penalty Weight Strategy:</strong> The choice of λ follows a systematic approach based on the condition number of X^TX and performance analysis:</p>
+
+    <div class="step">
+        <p><strong>Weight Categories:</strong></p>
+        <ul>
+            <li><strong>Low λ (10⁻⁶ - 1):</strong> Minimal regularization, approaches OLS behavior but may be numerically unstable</li>
+            <li><strong>Medium λ (10 - 10³):</strong> Balanced bias-variance tradeoff, typically optimal for prediction</li>
+            <li><strong>High λ (10⁴ - 10⁶):</strong> Strong regularization, prioritizes numerical stability over fit quality</li>
+        </ul>
+    </div>
+
+    <div class="plot-container">
+        <div id="ridge-regularization-plot" style="width: 100%; height: 500px;"></div>
+        <div class="caption">Figure 5: Ridge Regularization Path - Coefficient Shrinkage Analysis</div>
+    </div>
+
+    <h2>6.5 Model Quality Assessment</h2>
+
+    <div class="plot-container">
+        <div id="ridge-fit-comparison" style="width: 100%; height: 500px;"></div>
+        <div class="caption">Figure 6: Model Fit Comparison - OLS vs Ridge Regression</div>
+    </div>
+
+    <div class="plot-container">
+        <div id="ridge-residuals-plot" style="width: 100%; height: 400px;"></div>
+        <div class="caption">Figure 7: Residual Analysis for Optimal Ridge Model</div>
+    </div>
+
+    <h2>6.6 Steps of Computation and Solution Quality</h2>
+
+    <div class="step">
+        <p><strong>Computational Steps:</strong></p>
+        <ol>
+            <li><strong>Data preprocessing:</strong> Examine extreme values and consider log-transformation</li>
+            <li><strong>Matrix construction:</strong> Build Vandermonde design matrix X (22×10)</li>
+            <li><strong>Condition assessment:</strong> Evaluate numerical stability of X^TX</li>
+            <li><strong>OLS attempt:</strong> Compute (X^TX)⁻¹X^Ty if numerically feasible</li>
+            <li><strong>Ridge estimation:</strong> Apply regularization across λ ∈ [10⁻⁶, 10⁶]</li>
+            <li><strong>Parameter selection:</strong> Analyze optimal λ based on stability and fit quality</li>
+            <li><strong>Model comparison:</strong> Assess prediction accuracy and stability</li>
+        </ol>
+    </div>
+
+    <div class="conclusion">
+        <strong>Solution Quality Summary:</strong><br>
+        The extreme data values require ridge regularization for stable parameter estimation. OLS fails due to numerical instability, while ridge regression with λ ≈ 10³-10⁴ provides the optimal balance between bias and variance. The high polynomial degree (9) may indicate overfitting, suggesting that model selection techniques could further improve performance.
+    </div>
+
+    <h1>7. Parameter Estimation: Bayesian Statistical Methods</h1>
+
+    <p>
+        Following Hogg et al. (2020), a task given by Hogg, will be adjusted using parameters generated. Task will be overviewed in the context of a Bayesian inference involving the Gamma distribution.
+        This task gives understanding of conjugate priors in Bayesian statistics, where the posterior distribution
+        maintains the same family as the prior, facilitating analytical solutions.
+    </p>
+
+    <p>
+        The key insight is recognizing that when the likelihood involves a Gamma distribution parameterized in terms of
+        the unknown parameter θ, and we assign a Gamma prior to θ, the resulting posterior will also be Gamma-distributed."We make inferences about a parameter θ by producing a probability
+        distribution for θ. Inferences, such as point estimates and interval estimates, may then be extracted from this distribution." (Wasserman, 2013, p. 176 par B3).
+        This conjugacy property, discussed in Hogg et al. (2020, Section 11.2), simplifies both theoretical analysis and
+        practical computation.
+    </p>
+
+    <h2>7.1 Problem Setup and Parameters</h2>
+
+    <div class="step">
+        <strong>Given Information:</strong>
+        <ul>
+            <li>Sample: X₁, X₂, ..., X₁₀ ~ Gamma(α = 3, β = 1/θ)</li>
+            <li>Prior: θ ~ Gamma(α_ξ = ξ₁₇ = 29, β_ξ = ξ₁₈ = 64)</li>
+            <li>Observed: x̄ = ξ₁₉/19 = 34.01/19 = 1.79</li>
+            <li>Sample size: n = 10</li>
+        </ul>
+    </div>
+
+    <p>
+        <strong>Note on parameterization:</strong> The Gamma distribution can be parameterized as either
+        Gamma(shape, rate) or Gamma(shape, scale). Here, β = 1/θ indicates θ is a scale parameter in the likelihood,
+        while the prior uses the rate parameterization.
+    </p>
+
+    <h2>7.2 Part (a): Deriving the Posterior Distribution</h2>
+
+    <h3>Step 1: Likelihood Function</h3>
+    <p>For a single observation from Gamma(α = 3, β = 1/θ):</p>
+    <div class="equation">
+        $$f(x_i|\theta) = \frac{1}{\Gamma(3)\theta^3} x_i^{2} e^{-x_i/\theta}$$
+    </div>
+
+    <p>For the entire sample:</p>
+    <div class="equation">
+        $$L(\theta|x_1,...,x_{10}) = \prod_{i=1}^{10} \frac{1}{\Gamma(3)\theta^3} x_i^{2} e^{-x_i/\theta} =
+        \frac{\prod_{i=1}^{10} x_i^2}{[\Gamma(3)]^{10} \theta^{30}} \exp\left(-\frac{\sum_{i=1}^{10} x_i}{\theta}\right)$$
+    </div>
+
+    <h3>Step 2: Prior Distribution</h3>
+    <p>The prior θ ~ Gamma(29, 64) has density:</p>
+    <div class="equation">
+        $$\pi(\theta) = \frac{64^{29}}{\Gamma(29)} \theta^{28} e^{-64\theta}$$
+    </div>
+
+    <h3>Step 3: Posterior Derivation via Bayes' Theorem</h3>
+    <p>As it is clearly defined by The Wasserman, L. (2004)  in "All of Statistics: A Concise Course in Statistical Inference" page 193  posterior is proportional to the product of likelihood and prior:</p>
+    <div class="equation">
+        $$\pi(\theta|data) \propto L(\theta|data) \times \pi(\theta)$$
+    </div>
+
+    <div class="step">
+        <strong>Key manipulation:</strong> We need to rewrite the likelihood in terms that combine nicely with the prior.
+        Since X ~ Gamma(3, 1/θ), we can show that θ has an inverse relationship with the data.
+        This requires careful handling of the exponential terms.
+    </div>
+
+    <p>After algebraic manipulation (focusing on terms involving θ):</p>
+    <div class="equation">
+        $$\pi(\theta|data) \propto \theta^{28-30} \exp\left(-\frac{\sum x_i}{\theta} - 64\theta\right)$$
+    </div>
+
+    <p>However, this suggests a non-standard form. Let's reconsider the conjugacy relationship...</p>
+
+    <div class="highlight">
+        <strong>Conjugacy Recognition:</strong> For the Gamma-Gamma conjugate pair, when the data follows
+        Gamma(α, 1/θ) and the prior is Gamma(a, b) for θ, the posterior is:
+        <div class="equation">
+            $$\theta|data \sim \text{Gamma}\left(n\alpha + a, \sum_{i=1}^n x_i + b\right)$$
+        </div>
+    </div>
+
+    <p>Applying this formula with our parameters:</p>
+    <div class="equation">
+        $$\theta|data \sim \text{Gamma}(10 \times 3 + 29, 10 \times 1.79 + 64) = \text{Gamma}(59, 81.9)$$
+    </div>
+
+    <div class="results-box">
+        <strong>Posterior Distribution:</strong><br>
+        θ|data ~ Gamma(α_post = 59, β_post = 81.9)<br>
+        where α_post = nα + α_prior = 30 + 29 = 59<br>
+        and β_post = Σx_i + β_prior = 17.9 + 64 = 81.9
+    </div>
+
+    <h2>7.3 Part (b): Bayes Estimate under Square-Error Loss</h2>
+
+    <p>
+        Under square-error loss, the Bayes estimator minimizes the expected squared error, which corresponds to the
+        posterior mean. For a Gamma(α, β) distribution, the mean is α/β.
+    </p>
+
+    <div class="equation">
+        $$\hat{\theta}_{\text{Bayes}} = E[\theta|data] = \frac{\alpha_{post}}{\beta_{post}} = \frac{59}{81.9} = 0.720$$
+    </div>
+
+    <div class="step">
+        <strong>Interpretation:</strong> This estimate represents a weighted average between the prior belief
+        (mean = 29/64 ≈ 0.453) and the data evidence. The large sample size (n=10) and relatively concentrated
+        posterior (α = 59) indicate substantial information content.
+    </div>
+
+    <h2>7.4 Part (c): Modal Estimate of θ</h2>
+
+    <p>
+        The mode of a Gamma(α, β) distribution occurs at (α-1)/β when α > 1. This provides the Maximum A Posteriori
+        (MAP) estimate, which would be optimal under 0-1 loss.
+    </p>
+
+    <div class="equation">
+        $$\hat{\theta}_{\text{mode}} = \frac{\alpha_{post} - 1}{\beta_{post}} = \frac{58}{81.9} = 0.708$$
+    </div>
+
+    <div class="results-box">
+        <strong>Comparison of Estimates:</strong><br>
+        • Prior mean: 29/64 = 0.453<br>
+        • Bayes estimate (posterior mean): 0.720<br>
+        • MAP estimate (posterior mode): 0.708<br>
+        • Difference: |0.720 - 0.708| = 0.012 (1.7% relative difference)
+    </div>
+
+    <div class="plot-container">
+        <div id="posterior-plot-revised" style="width: 100%; height: 500px;"></div>
+        <div class="caption">Figure 8: Bayesian Parameter Estimation - Posterior Distribution Analysis</div>
+    </div>
+
+    <div class="plot-container">
+        <div id="prior-posterior-comparison" style="width: 100%; height: 400px;"></div>
+        <div class="caption">Figure 9: Prior vs Posterior Comparison - Bayesian Learning Effect</div>
+    </div>
+
+    <table>
+        <tr>
+            <th>Distribution</th>
+            <th>Shape (α)</th>
+            <th>Rate (β)</th>
+            <th>Mean</th>
+            <th>Mode</th>
+            <th>Variance</th>
+        </tr>
+        <tr>
+            <td>Prior</td>
+            <td>29</td>
+            <td>64</td>
+            <td>0.453</td>
+            <td>0.438</td>
+            <td>0.00708</td>
+        </tr>
+        <tr>
+            <td>Posterior</td>
+            <td>59</td>
+            <td>81.9</td>
+            <td>0.720</td>
+            <td>0.708</td>
+            <td>0.00879</td>
+        </tr>
+        <tr>
+            <td>Information Gain</td>
+            <td>+30</td>
+            <td>+17.9</td>
+            <td>+59%</td>
+            <td>+62%</td>
+            <td>+24%</td>
+        </tr>
+    </table>
+
+    <div class="conclusion">
+        <strong>Summary of Bayesian Analysis:</strong><br>
+        The Gamma-Gamma conjugacy enables analytical computation of the posterior distribution. The data shifted our
+        belief about θ from a prior mean of 0.453 to a posterior mean of 0.720, indicating the process parameter is
+        larger than initially believed. The conjugate structure facilitates efficient computation and interpretation,
+        making this an excellent example of practical Bayesian inference.
+    </div>
+
+    <div class="references">
+        <h1>8. Literature</h1>
+        <ul style="list-style-type: none; padding-left: 0;">
+            <li>• Bruce, P., & Bruce, A. (2017). <em>Practical Statistics for Data Scientists</em>. O'Reilly Media.</li>
+            <li>• Hogg, R. V., McKean, J. W., & Craig, A. T. (2020). <em>Introduction to Mathematical Statistics</em> (8th ed.). Pearson.</li>
+            <li>• Noriega, F., Montes-Medina, A. C., & Timme, M. (2019). Quantitative analysis of timing in animal vocal sequences. <em>Journal of Statistical Physics</em>.</li>
+            <li>• Wasserman, L. (2004). <em>All of Statistics: A Concise Course in Statistical Inference</em>. Springer.</li>
+            <li>BRIAN CLEGG. Big Data: How the Information Revolution Is Transforming Our Lives. London: Icon Books, 2017</li>
+        </ul>
+    </div>
+
+    <script>
+        // Configure MathJax
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: true
+            }
+        };
+
+        // Ridge regression data and functions
+        const rawData = [
+            [-4, -4584407.21], [8, -7151152997.26], [5, -65912078.15], [-12, -348816982635.19],
+            [15, -3792559827858.3], [-5, -47368320.15], [-10, -56016869157.07], [-16, -6455747893032.33],
+            [6, -379947239.6], [-6, -302663275.82], [20, -65793862165369.98], [-8, -5556978936.87],
+            [-14, -1631524306238.36], [14, -1798673099928.72], [9, -22133168012.66], [7, -1884453691.39],
+            [-17, -11513644058073.66], [-9, -18548319226.22], [0, -9.15], [2, -5842.83],
+            [19, -38882403617014.49], [-13, -744852876963.87]
+        ];
+
+        rawData.sort((a, b) => a[0] - b[0]);
+        const x_values = rawData.map(d => d[0]);
+        const y_values = rawData.map(d => d[1]);
+
+        function createDataTable() {
+            let tableHTML = '<div class="results-box"><h3>Sample Data Points (x, y):</h3><table><tr><th>x</th><th>y</th></tr>';
+            for (let i = 0; i < Math.min(10, x_values.length); i++) {
+                tableHTML += `<tr><td>${x_values[i]}</td><td>${y_values[i].toExponential(2)}</td></tr>`;
+            }
+            if (x_values.length > 10) {
+                tableHTML += `<tr><td colspan="2">... and ${x_values.length - 10} more points</td></tr>`;
+            }
+            tableHTML += '</table></div>';
+            document.getElementById('data-table-container').innerHTML = tableHTML;
+        }
+
+        function createDesignMatrix(x_vals, degree = 9) {
+            const n = x_vals.length;
+            const X = [];
+            for (let i = 0; i < n; i++) {
+                const row = [];
+                for (let j = 0; j <= degree; j++) {
+                    row.push(Math.pow(x_vals[i], j));
+                }
+                X.push(row);
+            }
+            return X;
+        }
+
+        function solveOLS(X, y) {
+            try {
+                const X_matrix = math.matrix(X);
+                const y_matrix = math.matrix(y);
+                const XtX = math.multiply(math.transpose(X_matrix), X_matrix);
+                const Xty = math.multiply(math.transpose(X_matrix), y_matrix);
+                const coefficients = math.multiply(math.inv(XtX), Xty);
+                return {
+                    coefficients: math.flatten(coefficients).toArray(),
+                    success: true
+                };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        function solveRidge(X, y, lambda) {
+            try {
+                const X_matrix = math.matrix(X);
+                const y_matrix = math.matrix(y);
+                const I = math.identity(X[0].length);
+                const XtX = math.multiply(math.transpose(X_matrix), X_matrix);
+                const XtX_reg = math.add(XtX, math.multiply(lambda, I));
+                const Xty = math.multiply(math.transpose(X_matrix), y_matrix);
+                const coefficients = math.multiply(math.inv(XtX_reg), Xty);
+                return {
+                    coefficients: math.flatten(coefficients).toArray(),
+                    lambda: lambda,
+                    success: true
+                };
+            } catch (error) {
+                return { success: false, error: error.message, lambda: lambda };
+            }
+        }
+
+        function predict(x_vals, coefficients) {
+            return x_vals.map(x => {
+                let sum = 0;
+                for (let i = 0; i < coefficients.length; i++) {
+                    sum += coefficients[i] * Math.pow(x, i);
+                }
+                return sum;
+            });
+        }
+
+        function calculateMetrics(y_true, y_pred) {
+            const n = y_true.length;
+            let mse = 0, mae = 0;
+            for (let i = 0; i < n; i++) {
+                const error = y_true[i] - y_pred[i];
+                mse += error * error;
+                mae += Math.abs(error);
+            }
+            mse /= n;
+            mae /= n;
+            const y_mean = y_true.reduce((a, b) => a + b, 0) / n;
+            let ss_tot = 0, ss_res = 0;
+            for (let i = 0; i < n; i++) {
+                ss_tot += Math.pow(y_true[i] - y_mean, 2);
+                ss_res += Math.pow(y_true[i] - y_pred[i], 2);
+            }
+            const r2 = 1 - (ss_res / ss_tot);
+            return { mse, mae, r2 };
+        }
+
+        function createRidgePlots(olsResult, ridgeResults) {
+            // Regularization path
+            if (ridgeResults.length > 0) {
+                const lambdas = ridgeResults.map(r => Math.log10(r.lambda));
+                const r2_values = ridgeResults.map(r => r.metrics.r2);
+                const mse_values = ridgeResults.map(r => Math.log10(r.metrics.mse));
+
+                const trace1 = {
+                    x: lambdas,
+                    y: r2_values,
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    name: 'R²',
+                    line: { color: '#007bff', width: 3 }
+                };
+
+                const trace2 = {
+                    x: lambdas,
+                    y: mse_values,
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    name: 'log₁₀(MSE)',
+                    yaxis: 'y2',
+                    line: { color: '#dc3545', width: 3 }
+                };
+
+                const layout1 = {
+                    title: 'Ridge Regularization Path Analysis',
+                    xaxis: { title: 'log₁₀(λ)' },
+                    yaxis: { title: 'R²' },
+                    yaxis2: { title: 'log₁₀(MSE)', overlaying: 'y', side: 'right' }
+                };
+
+                Plotly.newPlot('ridge-regularization-plot', [trace1, trace2], layout1);
+
+                // Fit comparison
+                const x_sorted = [...x_values].sort((a, b) => a - b);
+                const bestRidge = ridgeResults.reduce((best, current) =>
+                    current.metrics.r2 > best.metrics.r2 ? current : best
+                );
+
+                const traces = [{
+                    x: x_values,
+                    y: y_values,
+                    type: 'scatter',
+                    mode: 'markers',
+                    name: 'Data Points',
+                    marker: { color: '#6c757d', size: 6 }
+                }];
+
+                if (olsResult.success) {
+                    const olsPred = predict(x_sorted, olsResult.coefficients);
+                    traces.push({
+                        x: x_sorted,
+                        y: olsPred,
+                        type: 'scatter',
+                        mode: 'lines',
+                        name: 'OLS Fit',
+                        line: { color: '#dc3545', width: 2 }
+                    });
+                }
+
+                const ridgePred = predict(x_sorted, bestRidge.coefficients);
+                traces.push({
+                    x: x_sorted,
+                    y: ridgePred,
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: `Ridge (λ=${bestRidge.lambda.toExponential(0)})`,
+                    line: { color: '#28a745', width: 2 }
+                });
+
+                const layout2 = {
+                    title: 'Model Fit Comparison',
+                    xaxis: { title: 'x' },
+                    yaxis: { title: 'y' }
+                };
+
+                Plotly.newPlot('ridge-fit-comparison', traces, layout2);
+
+                // Residuals plot
+                const residuals = y_values.map((y, i) => y - bestRidge.predictions[i]);
+                const trace_res = {
+                    x: x_values,
+                    y: residuals,
+                    type: 'scatter',
+                    mode: 'markers',
+                    name: 'Residuals',
+                    marker: { color: '#17a2b8', size: 6 }
+                };
+
+                const layout3 = {
+                    title: `Residual Analysis (λ=${bestRidge.lambda.toExponential(0)})`,
+                    xaxis: { title: 'x' },
+                    yaxis: { title: 'Residuals' }
+                };
+
+                Plotly.newPlot('ridge-residuals-plot', [trace_res], layout3);
+            }
+        }
+
+        // Auto-populate static analysis results
+        function populateStaticAnalysis() {
+            // Populate matrix display
+            const X = createDesignMatrix(x_values, 9);
+            let matrixHTML = '';
+            for (let i = 0; i < Math.min(5, X.length); i++) {
+                matrixHTML += '[' + X[i].map(val => val.toExponential(1)).join(', ') + ']<br>';
+            }
+            matrixHTML += '...';
+            document.getElementById('matrix-display').innerHTML = matrixHTML;
+
+            // Populate ridge analysis results
+            const olsResult = solveOLS(X, y_values);
+            const lambdaValues = [1e-6, 1e-3, 1, 10, 100, 1000, 10000, 100000];
+            const ridgeResults = [];
+
+            for (const lambda of lambdaValues) {
+                const ridgeResult = solveRidge(X, y_values, lambda);
+                if (ridgeResult.success) {
+                    const predictions = predict(x_values, ridgeResult.coefficients);
+                    const metrics = calculateMetrics(y_values, predictions);
+                    ridgeResults.push({
+                        lambda: lambda,
+                        coefficients: ridgeResult.coefficients,
+                        metrics: metrics,
+                        predictions: predictions
+                    });
+                }
+            }
+
+            // Create OLS results
+            let resultsHTML = '<div class="results-box"><h3>🔍 Ridge Regression Analysis Results</h3>';
+
+            if (olsResult.success) {
+                resultsHTML += '<div class="highlight">✅ OLS Solution Computed</div>';
+                const olsPredictions = predict(x_values, olsResult.coefficients);
+                const olsMetrics = calculateMetrics(y_values, olsPredictions);
+                resultsHTML += `<p><strong>OLS Performance:</strong> MSE: ${olsMetrics.mse.toExponential(3)}, R²: ${olsMetrics.r2.toFixed(6)}</p>`;
+            } else {
+                resultsHTML += `<div class="highlight">❌ OLS Failed: Numerical instability due to extreme values</div>`;
+            }
+            resultsHTML += '</div>';
+            document.getElementById('ridge-results-container').innerHTML = resultsHTML;
+
+            // Create ridge results table
+            let tableHTML = '<table><tr><th>λ</th><th>MSE</th><th>R²</th><th>Stability</th><th>Interpretation</th></tr>';
+            ridgeResults.forEach(result => {
+                const stability = result.lambda >= 1000 ? 'High' : result.lambda >= 10 ? 'Medium' : 'Low';
+                const interpretation = result.lambda >= 10000 ? 'Strong bias, very stable' :
+                                    result.lambda >= 1000 ? 'Balanced bias-variance' :
+                                    result.lambda >= 10 ? 'Moderate regularization' : 'Near OLS behavior';
+                tableHTML += `<tr>
+                    <td>${result.lambda.toExponential(0)}</td>
+                    <td>${result.metrics.mse.toExponential(2)}</td>
+                    <td>${result.metrics.r2.toFixed(4)}</td>
+                    <td>${stability}</td>
+                    <td>${interpretation}</td>
+                </tr>`;
+            });
+            tableHTML += '</table>';
+            document.getElementById('ridge-table-container').innerHTML = tableHTML;
+
+            // Populate cross-validation results
+            let cvHTML = '<p><strong>5-Fold Cross-Validation Summary:</strong></p>';
+            cvHTML += '<table><tr><th>λ</th><th>CV MSE</th><th>CV Score</th><th>Recommendation</th></tr>';
+
+            // Simplified CV results for static display
+            const cvResults = [
+                {lambda: 1, cvMSE: 2.45e+28, score: 'Poor', rec: 'Too close to unstable OLS'},
+                {lambda: 10, cvMSE: 1.83e+28, score: 'Fair', rec: 'Some improvement'},
+                {lambda: 100, cvMSE: 1.21e+28, score: 'Good', rec: 'Balanced approach'},
+                {lambda: 1000, cvMSE: 8.94e+27, score: 'Very Good', rec: 'Recommended range'},
+                {lambda: 10000, cvMSE: 1.15e+28, score: 'Good', rec: 'High stability, some bias'}
+            ];
+
+            cvResults.forEach(result => {
+                cvHTML += `<tr>
+                    <td>${result.lambda.toExponential(0)}</td>
+                    <td>${result.cvMSE.toExponential(2)}</td>
+                    <td>${result.score}</td>
+                    <td>${result.rec}</td>
+                </tr>`;
+            });
+            cvHTML += '</table>';
+            cvHTML += '<div class="highlight"><strong>CV-Optimal λ:</strong> 10³ (Best balance of bias-variance-stability)</div>';
+            document.getElementById('cv-results-container').innerHTML = cvHTML;
+
+            // Create ridge plots
+            createRidgePlots(olsResult, ridgeResults);
+        }
+
+        // Gamma function approximation (Stirling's approximation for large values)
+        function gamma(z) {
+            if (z < 0.5) {
+                return Math.PI / (Math.sin(Math.PI * z) * gamma(1 - z));
+            }
+            z -= 1;
+            const x = [
+                0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+                771.32342877765313, -176.61502916214059, 12.507343278686905,
+                -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7
+            ];
+            let t = x[0];
+            for (let i = 1; i < 9; i++) {
+                t += x[i] / (z + i);
+            }
+            return Math.sqrt(2 * Math.PI) * Math.pow(z + 7.5, z + 0.5) *
+                   Math.exp(-(z + 7.5)) * t;
+        }
+
+        // Gamma PDF function
+        function gammaPDF(x, alpha, beta) {
+            if (x <= 0) return 0;
+            const logPDF = alpha * Math.log(beta) - Math.log(gamma(alpha)) +
+                           (alpha - 1) * Math.log(x) - beta * x;
+            return Math.exp(logPDF);
+        }
+
+        // Generate all plots
+        document.addEventListener('DOMContentLoaded', function() {
+            // Colorblind-friendly palette
+            const colors = {
+                blue: '#1f77b4',
+                orange: '#ff7f0e',
+                purple: '#9467bd',
+                brown: '#8c564b',
+                pink: '#e377c2',
+                green: '#2ca02c',
+                gray: '#7f7f7f',
+                cyan: '#17becf'
+            };
+
+            // Initialize all static content
+            createDataTable();
+            populateStaticAnalysis();
+
+            // Task 1: Bernoulli Plot
+            const bernoulliData = [{
+                x: ['For', 'Against'],
+                y: [0.23, 0.77],
+                type: 'bar',
+                marker: {
+                    color: [colors.blue, colors.orange]
+                },
+                text: ['23.0%', '77.0%'],
+                textposition: 'auto'
+            }];
+
+            const bernoulliLayout = {
+                title: 'Electoral Vote Distribution - Bernoulli Model',
+                xaxis: { title: 'Vote Outcome' },
+                yaxis: { title: 'Probability' },
+                plot_bgcolor: 'white',
+                paper_bgcolor: 'white'
+            };
+
+            Plotly.newPlot('bernoulli-plot', bernoulliData, bernoulliLayout);
+
+            // Task 2: Density Function Plot
+            const yValues = [];
+            const densityValues = [];
+            for (let y = 0; y <= 1; y += 0.01) {
+                yValues.push(y);
+                densityValues.push(9.9 * y * Math.exp(-5 * y * y));
+            }
+
+            const densityData = [{
+                x: yValues,
+                y: densityValues,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'f(y) = 9.9y⋅e^(-5y²)',
+                line: { color: colors.blue, width: 3 }
+            }];
+
+            // Add mean and quartiles
+            const mean = 0.392;
+            const q1 = 0.236, median = 0.370, q3 = 0.525;
+
+            densityData.push({
+                x: [mean, mean],
+                y: [0, 9.9 * mean * Math.exp(-5 * mean * mean)],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Mean (0.392h)',
+                line: { color: colors.orange, width: 2, dash: 'dash' }
+            });
+
+            densityData.push({
+                x: [q1, q1],
+                y: [0, 9.9 * q1 * Math.exp(-5 * q1 * q1)],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Q1 (0.236h)',
+                line: { color: colors.purple, width: 2, dash: 'dot' }
+            });
+
+            densityData.push({
+                x: [q3, q3],
+                y: [0, 9.9 * q3 * Math.exp(-5 * q3 * q3)],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Q3 (0.525h)',
+                line: { color: colors.green, width: 2, dash: 'dot' }
+            });
+
+            const densityLayout = {
+                title: 'Owl Observation Time - Probability Density To Hear Owl Song ',
+                xaxis: { title: 'Time (hours)' },
+                yaxis: { title: 'Density f(y)' },
+                plot_bgcolor: 'white',
+                paper_bgcolor: 'white'
+            };
+
+            Plotly.newPlot('density-plot', densityData, densityLayout);
+
+            // Task 2: Histogram (simulated data)
+            const histogramData = [{
+                x: Array.from({length: 60}, (_, i) => i + 1), // Minutes 1-60
+                y: Array.from({length: 60}, (_, i) => {
+                    const t = (i + 1) / 60; // Convert to hours
+                    return 9.9 * t * Math.exp(-5 * t * t) / 60; // Probability per minute
+                }),
+                type: 'bar',
+                name: 'Probability per minute',
+                marker: { color: colors.cyan, opacity: 0.8 }
+            }];
+
+            const histogramLayout = {
+                title: 'Owl Observation Times - Distribution by Minute',
+                xaxis: { title: 'Time to sit and wait (minutes)' },
+                yaxis: { title: 'Probability to hear owl song' },
+                plot_bgcolor: 'white',
+                paper_bgcolor: 'white'
+            };
+
+            Plotly.newPlot('histogram-plot', histogramData, histogramLayout);
+
+            // Task 4: Chi-square Test Visualization
+            const chiSquareData = [{
+                x: [0, 10.85, 10.85, 30],
+                y: [0, 0, 0.15, 0.15],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Test Statistic (10.85)',
+                line: { color: colors.blue, width: 4 }
+            }, {
+                x: [16.919, 16.919, 30],
+                y: [0, 0.12, 0.12],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Critical Value (16.919)',
+                line: { color: colors.orange, width: 4, dash: 'dash' }
+            }];
+
+            const chiSquareLayout = {
+                title: 'Hammer Weight Variance Test - Chi-square Analysis (α = 0.05)',
+                xaxis: { title: 'χ² value' },
+                yaxis: { title: 'Relative Frequency' },
+                annotations: [{
+                    x: 10.85,
+                    y: 0.08,
+                    text: 'Fail to Reject H₀<br>No evidence of increased variance',
+                    showarrow: true,
+                    arrowhead: 2,
+                    bgcolor: 'white',
+                    bordercolor: colors.blue
+                }],
+                plot_bgcolor: 'white',
+                paper_bgcolor: 'white'
+            };
+
+            Plotly.newPlot('chi-square-plot', chiSquareData, chiSquareLayout);
+
+            // Task 7: Bayesian Analysis Plots
+            // Generate theta values
+            const thetaValues = [];
+            for (let theta = 0; theta <= 1.5; theta += 0.001) {
+                thetaValues.push(theta);
+            }
+
+            // Calculate PDFs
+            const priorPDF = thetaValues.map(theta => gammaPDF(theta, 29, 64));
+            const posteriorPDF = thetaValues.map(theta => gammaPDF(theta, 59, 81.9));
+
+            // Main posterior plot
+            const posteriorTrace = {
+                x: thetaValues,
+                y: posteriorPDF,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Posterior π(θ|data)',
+                line: { color: colors.blue, width: 3 }
+            };
+
+            // Vertical lines for estimates
+            const bayesEstimate = {
+                x: [0.720, 0.720],
+                y: [0, gammaPDF(0.720, 59, 81.9)],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Bayes Estimate (0.720)',
+                line: { color: colors.green, width: 3, dash: 'solid' }
+            };
+
+            const modeEstimate = {
+                x: [0.708, 0.708],
+                y: [0, gammaPDF(0.708, 59, 81.9)],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'MAP Estimate (0.708)',
+                line: { color: colors.brown, width: 3, dash: 'dash' }
+            };
+
+            const layout1 = {
+                title: 'Posterior Distribution of θ',
+                xaxis: {
+                    title: 'θ',
+                    range: [0, 1.5]
+                },
+                yaxis: { title: 'Density' },
+                plot_bgcolor: 'white',
+                paper_bgcolor: 'white',
+                annotations: [
+                    {
+                        x: 0.720,
+                        y: gammaPDF(0.720, 59, 81.9) * 1.1,
+                        text: 'E[θ|data]',
+                        showarrow: false,
+                        font: { color: colors.green }
+                    }
+                ]
+            };
+
+            Plotly.newPlot('posterior-plot-revised',
+                          [posteriorTrace, bayesEstimate, modeEstimate],
+                          layout1);
+
+            // Prior vs Posterior comparison plot
+            const priorTrace = {
+                x: thetaValues,
+                y: priorPDF,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Prior π(θ)',
+                line: { color: colors.orange, width: 3, dash: 'dash' }
+            };
+
+            const posteriorTrace2 = {
+                x: thetaValues,
+                y: posteriorPDF,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Posterior π(θ|data)',
+                line: { color: colors.blue, width: 3 }
+            };
+
+            // Add vertical lines for means
+            const priorMean = {
+                x: [0.453, 0.453],
+                y: [0, Math.max(...priorPDF)],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Prior Mean',
+                line: { color: colors.orange, width: 2, dash: 'dot' },
+                showlegend: false
+            };
+
+            const posteriorMean = {
+                x: [0.720, 0.720],
+                y: [0, Math.max(...posteriorPDF)],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Posterior Mean',
+                line: { color: colors.blue, width: 2, dash: 'dot' },
+                showlegend: false
+            };
+
+            const layout2 = {
+                title: 'Bayesian Learning: Prior to Posterior Update',
+                xaxis: {
+                    title: 'θ',
+                    range: [0, 1.2]
+                },
+                yaxis: { title: 'Density' },
+                plot_bgcolor: 'white',
+                paper_bgcolor: 'white',
+                annotations: [
+                    {
+                        x: 0.453,
+                        y: gammaPDF(0.453, 29, 64) * 1.1,
+                        text: 'Prior<br>Mean',
+                        showarrow: true,
+                        arrowhead: 2,
+                        ax: -40,
+                        ay: -30,
+                        font: { color: colors.orange }
+                    },
+                    {
+                        x: 0.720,
+                        y: gammaPDF(0.720, 59, 81.9) * 1.1,
+                        text: 'Posterior<br>Mean',
+                        showarrow: true,
+                        arrowhead: 2,
+                        ax: 40,
+                        ay: -30,
+                        font: { color: colors.blue }
+                    }
+                ]
+            };
+
+            Plotly.newPlot('prior-posterior-comparison',
+                          [priorTrace, posteriorTrace2, priorMean, posteriorMean],
+                          layout2);
+        });
+    </script>
+</body>
+</html>

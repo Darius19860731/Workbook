@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Statistical Assignment with UML Architecture</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+  <!-- Add any other scripts from your main assignment -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    /* Combined styles from both files */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Navigation for sections */
+    .nav-tabs {
+      display: flex;
+      border-bottom: 2px solid #007bff;
+      margin-bottom: 20px;
+    }
+    .nav-tab {
+      padding: 10px 20px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+    .nav-tab.active {
+      background: #007bff;
+      color: white;
+    }
+
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+
+    /* UML diagram styles */
+    .diagram-container {
+      margin: 20px 0;
+      padding: 20px;
+      background: #fafafa;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+    .mermaid {
+      text-align: center;
+    }
+
+    /* Print styles */
+    @media print {
+      .nav-tabs { display: none; }
+      .section { display: block !important; }
+      .container { max-width: none; margin: 0; box-shadow: none; }
+      .diagram-container { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Complete Statistical Assignment Documentation</h1>
+
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showSection('assignment')">Assignment</div>
+    <div class="nav-tab" onclick="showSection('architecture')">UML Architecture</div>
+  </div>
+
+  <!-- Main Assignment Section -->
+  <div id="assignment" class="section active">
+    <!-- Paste your main assignment HTML content here -->
+    <h2>Statistical Analysis Assignment</h2>
+    <!-- Your assignment content goes here -->
+  </div>
+
+  <!-- UML Architecture Section -->
+  <div id="architecture" class="section">
+    <h2>UML Architecture Diagram: Statistical Assignment JavaScript</h2>
+
+    <div class="description">
+      <h3>Overview</h3>
+      <p>This UML diagram illustrates the JavaScript architecture of your statistical assignment document...</p>
+    </div>
+
+    <h3>Component Architecture Diagram</h3>
+    <div class="diagram-container">
+      <div class="mermaid">
+        classDiagram
+        %% Your existing UML diagram code
+        class DataModule {
+        -rawData: Array~[x,y]~
+        -x_values: Array~number~
+        -y_values: Array~number~
+        -parameters: Object
+        +sortData()
+        +extractValues()
+        }
+        %% ... rest of your diagram
+      </div>
+    </div>
+
+    <!-- Include all your other diagrams and descriptions -->
+  </div>
+</div>
+
+<script>
+  // Function to switch between sections
+  function showSection(sectionName) {
+    // Hide all sections
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => section.classList.remove('active'));
+
+    // Remove active class from all tabs
+    const tabs = document.querySelectorAll('.nav-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    // Show selected section
+    document.getElementById(sectionName).classList.add('active');
+
+    // Activate clicked tab
+    event.target.classList.add('active');
+  }
+
+  // Initialize Mermaid
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    themeVariables: {
+      primaryColor: '#f8f9fa',
+      primaryTextColor: '#333',
+      primaryBorderColor: '#007bff',
+      lineColor: '#5d6d7e',
+      secondaryColor: '#e8f4fd',
+      tertiaryColor: '#d4edda'
+    }
+  });
+
+  // Your existing JavaScript code from the assignment
+  // Add all your statistical calculation functions here
+</script>
+</body>
+</html>

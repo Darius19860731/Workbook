@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture of the Workbook</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .diagram-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .description {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e8f4fd;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+        }
+        .mermaid {
+            text-align: center;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Workbook Architecture Diagram </h1>
+
+        <div class="description">
+            <h2>Overview</h2>
+            <p>This UML diagram illustrates the JavaScript architecture of the Workbook.
+            It shows the relationships between data structures, mathematical functions, visualization components,
+            and DOM manipulation routines. </p>
+        </div>
+
+        <h2>Component Architecture Diagram</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+                classDiagram
+                    %% Core Data Module
+                    class DataModule {
+                        -rawData: Array~[x,y]~
+                        -x_values: Array~number~
+                        -y_values: Array~number~
+                        -parameters: Object
+                        +sortData()
+                        +extractValues()
+                    }
+
+                    %% Mathematical Operations
+                    class MatrixOperations {
+                        +createDesignMatrix(x_vals, degree): Matrix
+                        +createVandermondeMatrix(x, degree): Matrix
+                        +transposeMatrix(matrix): Matrix
+                        +multiplyMatrix(A, B): Matrix
+                        +invertMatrix(matrix): Matrix
+                    }
+
+                    %% Statistical Solvers
+                    class StatisticalSolvers {
+                        +solveOLS(X, y): Object
+                        +solveRidge(X, y, lambda): Object
+                        +calculateCoefficients(X, y): Array
+                    }
+
+                    %% Prediction and Metrics
+                    class PredictionEngine {
+                        +predict(x_vals, coefficients): Array
+                        +calculateMetrics(y_true, y_pred): Object
+                        +calculateMSE(errors): number
+                        +calculateR2(y_true, y_pred): number
+                    }
+
+                    %% Bayesian Analysis
+                    class BayesianAnalysis {
+                        +gamma(z): number
+                        +gammaPDF(x, alpha, beta): number
+                        +calculatePosterior(prior, likelihood): Object
+                        +computeBayesEstimate(posterior): number
+                        +computeMAPEstimate(posterior): number
+                    }
+
+                    %% Visualization Module
+                    class VisualizationModule {
+                        +createBernoulliPlot(data): void
+                        +createDensityPlot(data): void
+                        +createChiSquarePlot(data): void
+                        +createRidgePlots(olsResult, ridgeResults): void
+                        +createPosteriorPlots(priorPDF, posteriorPDF): void
+                    }
+
+                    %% DOM Manipulation
+                    class DOMController {
+                        +createDataTable(): void
+                        +populateStaticAnalysis(): void
+                        +updateMatrixDisplay(matrix): void
+                        +updateResultsContainer(results): void
+                        +renderTables(data): void
+                    }
+
+                    %% External Libraries
+                    class ExternalLibraries {
+                        <<interface>>
+                        +Plotly: Object
+                        +MathJS: Object
+                        +MathJax: Object
+                    }
+
+                    %% Event Handler
+                    class EventHandler {
+                        +initializeOnLoad(): void
+                        +setupPlots(): void
+                        +bindEvents(): void
+                    }
+
+                    %% Main Application
+                    class StatisticalApplication {
+                        -dataModule: DataModule
+                        -matrixOps: MatrixOperations
+                        -solvers: StatisticalSolvers
+                        -prediction: PredictionEngine
+                        -bayesian: BayesianAnalysis
+                        -visualization: VisualizationModule
+                        -dom: DOMController
+                        +initialize(): void
+                        +runAnalysis(): void
+                    }
+
+                    %% Relationships
+                    StatisticalApplication --> DataModule : uses
+                    StatisticalApplication --> MatrixOperations : uses
+                    StatisticalApplication --> StatisticalSolvers : uses
+                    StatisticalApplication --> PredictionEngine : uses
+                    StatisticalApplication --> BayesianAnalysis : uses
+                    StatisticalApplication --> VisualizationModule : uses
+                    StatisticalApplication --> DOMController : uses
+                    StatisticalApplication --> EventHandler : initializes
+
+                    StatisticalSolvers --> MatrixOperations : depends on
+                    PredictionEngine --> MatrixOperations : uses
+                    VisualizationModule --> ExternalLibraries : uses Plotly
+                    MatrixOperations --> ExternalLibraries : uses MathJS
+                    DOMController --> ExternalLibraries : uses MathJax
+
+                    EventHandler --> StatisticalApplication : creates
+                    DOMController --> VisualizationModule : triggers
+                    StatisticalSolvers --> PredictionEngine : provides data to
+            </div>
+        </div>
+
+        <h2>Sequence Diagram: Ridge Regression Analysis Flow</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+                sequenceDiagram
+                    participant User
+                    participant DOM
+                    participant EventHandler
+                    participant DataModule
+                    participant MatrixOps
+                    participant Solvers
+                    participant Prediction
+                    participant Visualization
+
+                    User->>DOM: Page Load
+                    DOM->>EventHandler: DOMContentLoaded
+                    EventHandler->>DataModule: Initialize rawData
+                    EventHandler->>DOM: populateStaticAnalysis()
+
+                    DOM->>DataModule: sortData()
+                    DataModule->>DataModule: Extract x_values, y_values
+
+                    DOM->>MatrixOps: createDesignMatrix(x_values, 9)
+                    MatrixOps-->>DOM: Return Vandermonde Matrix
+
+                    DOM->>Solvers: solveOLS(X, y_values)
+                    Solvers->>MatrixOps: Matrix multiplication
+                    Solvers->>MatrixOps: Matrix inversion
+                    alt OLS Success
+                        Solvers-->>DOM: Return coefficients
+                    else OLS Failure
+                        Solvers-->>DOM: Return error
+                    end
+
+                    loop For each lambda value
+                        DOM->>Solvers: solveRidge(X, y_values, lambda)
+                        Solvers->>MatrixOps: Regularized matrix operations
+                        Solvers-->>DOM: Return ridge coefficients
+                        DOM->>Prediction: predict(x_values, coefficients)
+                        Prediction-->>DOM: Return predictions
+                        DOM->>Prediction: calculateMetrics(y_true, y_pred)
+                        Prediction-->>DOM: Return MSE, R², MAE
+                    end
+
+                    DOM->>Visualization: createRidgePlots(results)
+                    Visualization->>Visualization: Plot regularization path
+                    Visualization->>Visualization: Plot fit comparison
+                    Visualization->>Visualization: Plot residuals
+            </div>
+        </div>
+
+        <h2>State Diagram: Document Lifecycle</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+                stateDiagram-v2
+                    [*] --> Loading: Page Request
+                    Loading --> Initializing: DOM Ready
+
+                    Initializing --> DataProcessing: Load Parameters
+                    DataProcessing --> MatrixComputation: Create Design Matrix
+                    MatrixComputation --> OLSAttempt: Try OLS
+
+                    OLSAttempt --> OLSSuccess: Stable
+                    OLSAttempt --> OLSFailure: Unstable
+
+                    OLSSuccess --> RidgeRegression: Proceed
+                    OLSFailure --> RidgeRegression: Fallback
+
+                    RidgeRegression --> CrossValidation: Multiple λ values
+                    CrossValidation --> OptimalSelection: Find best λ
+                    OptimalSelection --> Visualization: Generate plots
+
+                    Visualization --> BayesianAnalysis: Section 7
+                    BayesianAnalysis --> PosteriorComputation: Calculate posterior
+                    PosteriorComputation --> FinalVisualization: Plot distributions
+
+                    FinalVisualization --> Complete: All plots rendered
+                    Complete --> [*]
+            </div>
+        </div>
+
+        <div class="description">
+            <h2>Key Components Explained</h2>
+
+            <h3>1. Data Module</h3>
+            <p>Manages the raw data arrays and parameter values from ξ variables. Handles data sorting and extraction.</p>
+
+            <h3>2. Matrix Operations</h3>
+            <p>Core mathematical operations using <code>math.js</code> library. Creates Vandermonde matrices and performs linear algebra.</p>
+
+            <h3>3. Statistical Solvers</h3>
+            <p>Implements OLS and Ridge regression algorithms. Handles numerical stability issues with extreme data values.</p>
+
+            <h3>4. Prediction Engine</h3>
+            <p>Generates predictions from fitted models and calculates performance metrics (MSE, R², MAE).</p>
+
+            <h3>5. Bayesian Analysis</h3>
+            <p>Implements Gamma distribution functions and posterior calculations for Section 7.</p>
+
+            <h3>6. Visualization Module</h3>
+            <p>Creates all plots using <code>Plotly.js</code>. Handles different chart types for each section.</p>
+
+            <h3>7. DOM Controller</h3>
+            <p>Manages HTML element updates, table creation, and dynamic content insertion.</p>
+        </div>
+
+        <h2>Function Call Graph</h2>
+        <div class="diagram-container">
+            <div class="mermaid">
+                graph TD
+                    A[DOMContentLoaded] --> B[Initialize Data]
+                    B --> C[createDataTable]
+                    B --> D[populateStaticAnalysis]
+
+                    D --> E[createDesignMatrix]
+                    D --> F[solveOLS]
+                    D --> G[solveRidge Loop]
+
+                    F --> H{OLS Success?}
+                    H -->|Yes| I[Calculate OLS Metrics]
+                    H -->|No| J[Log Failure]
+
+                    G --> K[predict]
+                    G --> L[calculateMetrics]
+
+                    I --> M[createRidgePlots]
+                    L --> M
+
+                    M --> N[Plot Regularization Path]
+                    M --> O[Plot Fit Comparison]
+                    M --> P[Plot Residuals]
+
+                    A --> Q[Create All Task Plots]
+                    Q --> R[Bernoulli Plot]
+                    Q --> S[Density Plot]
+                    Q --> T[Chi-Square Plot]
+                    Q --> U[Posterior Plots]
+
+                    U --> V[gammaPDF calculations]
+                    V --> W[Prior vs Posterior]
+            </div>
+        </div>
+
+        <div class="description">
+            <h2>Implementation Notes</h2>
+
+            <h3>Error Handling</h3>
+            <ul>
+                <li>OLS solver includes try-catch for numerical instability</li>
+                <li>Ridge regression provides fallback for extreme data values</li>
+                <li>Gamma function uses Stirling's approximation for large values</li>
+            </ul>
+
+            <h3>Performance Optimizations</h3>
+            <ul>
+                <li>Matrix operations use efficient <code>math.js</code> implementations</li>
+                <li>Plots are rendered asynchronously after DOM ready</li>
+                <li>Data is pre-sorted for visualization efficiency</li>
+            </ul>
+
+            <h3>External Dependencies</h3>
+            <ul>
+                <li><strong>Plotly.js</strong>: Interactive plotting library</li>
+                <li><strong>math.js</strong>: Matrix and numerical operations</li>
+                <li><strong>MathJax</strong>: LaTeX equation rendering</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#f8f9fa',
+                primaryTextColor: '#333',
+                primaryBorderColor: '#007bff',
+                lineColor: '#5d6d7e',
+                secondaryColor: '#e8f4fd',
+                tertiaryColor: '#d4edda'
+            }
+        });
+    </script>
+</body>
+</html>
